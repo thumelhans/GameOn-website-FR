@@ -52,11 +52,11 @@
       </button>
     </div>
 
-    <div class="bground show">
+    <div class="bground">
       <div class="content">
         <span class="close"></span>
         <div class="modal-body">
-          <form name="reserve" action="index.html" method="get" onclick="return validate();">
+          <form name="reserve" id="submissionform" action="index.html" method="get" novalidate>
             <div class="formData" data-error="Veuillez entrer un prénom valide">
               <label for="first">Prénom</label><br>
               <input class="text-control" type="text" id="first" name="first"/><br>
@@ -119,14 +119,15 @@
               </label>
               <br>
             </div>
-            <input class="btn-submit" type="submit" class="button" value="C'est parti" />
+            <input class="btn-submit" type="submit" id="button" value="C'est parti" />
           </form>
         </div>
+        <div id="successModal" class="hidden">
+          <h2>Votre réservation a été enregistrée.</h2>
+          <p>Merci pour votre soutien</p>
+          <input class="btn-submit" type="submit" id="button" value="Fermer" onclick="closeModal();" />
+        </div>
       </div>
-    </div>
-    <div id="succesmodal">
-      <h2>Votre réservation a été effectuée avec succès!</h2>
-      <p>Merci pour votre soutien</p>
     </div>
   </main>
   <footer>

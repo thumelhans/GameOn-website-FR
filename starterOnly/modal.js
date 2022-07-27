@@ -7,16 +7,17 @@ const modalCloseBtn = document.querySelectorAll(".close");
 const successModal = document.getElementById("successModal");
 const checkBoxChecked = document.getElementById("checkbox1");
 const radioChecked = document.querySelectorAll("input[name=location]");
-
-console.log(formData);
+const inputSelection = document.getElementsByName("input");
+const formSelection = document.getElementById("submissionform");
+const modalBody = document.querySelector(".modal-body");
 
 // Regex elements
 const birthDateRegex =
-  /(200[0-4]|19[2-9]\d)\-(1[0-2]|0[1-9])\-(3[0-1]|[0-2]\d)/g;
+  /(200[0-4]|19[2-9]\d)\-(1[0-2]|0[1-9])\-(3[0-1]|[0-2]\d)/;
 const nameRegex = /^[a-zA-Z\u00e0-\u00ff]+(([- ])?[a-z\u00e0-\u00ff])+$/;
 const emailRegex =
-  /(^[a-z\d]+[\.\-\_]?[a-z\d]+)@([a-z\d]+[.\-]?[a-z\d]+)\.[a-z]+$/g;
-const quantityRegex = /^\d?\d$/g;
+  /(^[a-z\d]+[\.\-\_]?[a-z\d]+)@([a-z\d]+[.\-]?[a-z\d]+)\.[a-z]+$/;
+const quantityRegex = /^\d?\d$/;
 
 // Array used for regex test
 const inputValue = [
@@ -51,11 +52,10 @@ function editNav() {
   }
 }
 
-
 /**
  * regexTest return an Object for Each inputValue { inputValue.Id: inputValue.isValid }
  *
- * @return { inputValue.Id: inputValue.isValid } 
+ * @return { inputValue.Id: inputValue.isValid }
  */
 
 function regexTest() {
@@ -70,49 +70,119 @@ function regexTest() {
   return inputsValidity;
 }
 
+// Function used for reset error messages displayed when regexTest succeed
+function resetFormAttr() {
+  for (const elem of formData) {
+    const getElemAttr = elem.getAttribute("data-error-visible");
+
+    if (getElemAttr) {
+      elem.setAttribute("data-error-visible", "false");
+    }
+  }
+}
+
+// Function used for display or not the form or the success message and reset the form values
+function formDisplayAndValue() {
+  const getClassName = modalBody.className;
+
+  if (getClassName === "modal-body") {
+    modalBody.classList.add("hidden");
+    successModal.classList.remove("hidden");
+    formSelection.reset();
+  } else {
+    modalBody.classList.remove("hidden");
+    successModal.classList.add("hidden");
+  }
+}
+
 //check if data is valid
 function isFormDataValid() {
-  const regexTestArray = regexTest();
-  let isValid;
-  for (const element in regexTestArray) {
-    if (!regexTestArray[element]) {
+  let regexTestArray = Object.entries(regexTest());
+  let isValid = true;
+
+  resetFormAttr();
+
+  for (const [key, value] of regexTestArray) {
+    if (!value) {
       document
-        .getElementById(element)
+        .getElementById(key)
         .parentNode.setAttribute("data-error-visible", "true");
-        isValid = false;
-      }
+      isValid = false;
     }
-    return isValid;
+  }
+
+  return isValid;
 }
 
 // Check if a radio is checked
 function isRadioChecked() {
-  for (const element of radioChecked) {
-    if (!element.checked) {
-      document.getElementById("radioData").setAttribute("data-error-visible", "true");
+  let isValid = false;
+
+  radioChecked.forEach((element) => {
+    if (element.checked) {
+      isValid = true;
+      return isValid;
     }
+  });
+
+  if (isValid === false) {
+    document
+      .getElementById("radioData")
+      .setAttribute("data-error-visible", "true");
   }
+
+  return isValid;
 }
 
 // Check if CGU checkbox is checked
 function isCheckboxChecked() {
+  let isValid;
   if (!checkBoxChecked.checked) {
-    document.getElementById("checkboxData").setAttribute("data-error-visible", "true");
-  }
+    document
+      .getElementById("checkboxData")
+      .setAttribute("data-error-visible", "true");
+    isValid = false;
+  } else isValid = true;
+
+  return isValid;
 }
 
-// // launch modal event
-// modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+/* Event listener on form submission
 
-// // close modal event
-// modalCloseBtn.forEach((closeBtn) => closeBtn.addEventListener("click", closeModal));
+    if the tests don't pass the validation => preventDefault
+    else if the tests pass the validation => show success Message and return
 
-// // launch modal form
-// function launchModal() {
-//   modalbg.classList.add("show");
-// }
+*/
+formSelection.addEventListener("submit", (e) => {
+  const regexBool = isFormDataValid();
+  const radioBool = isRadioChecked();
+  const checkboxBool = isCheckboxChecked();
 
-// // close modal form
-// function closeModal() {
-//   modalbg.classList.remove("show");
-// }
+  if (!regexBool || !radioBool || !checkboxBool) {
+    e.preventDefault();
+  } else {
+    e.preventDefault();
+    formDisplayAndValue();
+  }
+});
+
+// launch modal event
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
+// close modal event
+modalCloseBtn.forEach((closeBtn) =>
+  closeBtn.addEventListener("click", closeModal)
+);
+
+// launch modal form
+function launchModal() {
+  modalbg.classList.add("show");
+}
+
+// close modal form
+function closeModal() {
+  modalbg.classList.remove("show");
+  setTimeout(() => {
+    formDisplayAndValue();
+  }, 1000);
+}
