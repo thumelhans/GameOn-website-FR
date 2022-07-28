@@ -140,9 +140,6 @@ main {
   opacity: 0;
   transform: translateY(-150px);
   transition: all var(--modal-duration);
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
 }
 
 .bground.show {
@@ -587,7 +584,7 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-  .bground{
+  .bground {
     display: unset;
   }
   .content {
@@ -625,6 +622,8 @@ footer {
     font-size: 1.2rem;
   }
 }
+
+/* Prevent double scrollbars */
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .container-overflowing-horizontally-class {
