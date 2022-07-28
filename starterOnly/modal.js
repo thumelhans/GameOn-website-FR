@@ -89,6 +89,7 @@ function formDisplayAndValue() {
     modalBody.classList.add("hidden");
     successModal.classList.remove("hidden");
     formSelection.reset();
+    resetFormAttr();
   } else {
     modalBody.classList.remove("hidden");
     successModal.classList.add("hidden");
@@ -182,6 +183,10 @@ function launchModal() {
 // close modal form
 function closeModal() {
   modalbg.classList.remove("show");
+  setTimeout(() => {
+    formSelection.reset();
+  resetFormAttr();
+  }, 1000);
   if (modalBody.className === "modal-body hidden") {
     setTimeout(() => {
       formDisplayAndValue();
