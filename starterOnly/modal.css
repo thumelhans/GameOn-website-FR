@@ -587,6 +587,9 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
+  .bground{
+    display: unset;
+  }
   .content {
     margin: 5% auto;
   }
