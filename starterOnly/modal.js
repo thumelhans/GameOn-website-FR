@@ -166,6 +166,7 @@ formSelection.addEventListener("submit", (e) => {
   }
 });
 
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -182,7 +183,9 @@ function launchModal() {
 // close modal form
 function closeModal() {
   modalbg.classList.remove("show");
-  setTimeout(() => {
-    formDisplayAndValue();
-  }, 1000);
+  if (modalBody.className === "modal-body hidden") {
+    setTimeout(() => {
+      formDisplayAndValue();
+    }, 1000); 
+  }
 }
