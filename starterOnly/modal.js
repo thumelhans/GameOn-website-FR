@@ -4,7 +4,7 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalCloseBtn = document.querySelectorAll(".close");
-const successModal = document.getElementById("successModal");
+const successModal = document.querySelector(".successModal");
 const checkBoxChecked = document.getElementById("checkbox1");
 const radioChecked = document.querySelectorAll("input[name=location]");
 const inputSelection = document.getElementsByName("input");
@@ -166,7 +166,6 @@ formSelection.addEventListener("submit", (e) => {
   }
 });
 
-
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -186,6 +185,6 @@ function closeModal() {
   if (modalBody.className === "modal-body hidden") {
     setTimeout(() => {
       formDisplayAndValue();
-    }, 1000); 
+    }, 1000);
   }
 }
