@@ -140,6 +140,9 @@ main {
   opacity: 0;
   transform: translateY(-150px);
   transition: all var(--modal-duration);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bground.show {

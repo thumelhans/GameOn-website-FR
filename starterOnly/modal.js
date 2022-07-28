@@ -185,7 +185,7 @@ function closeModal() {
   modalbg.classList.remove("show");
   setTimeout(() => {
     formSelection.reset();
-  resetFormAttr();
+    resetFormAttr();
   }, 1000);
   if (modalBody.className === "modal-body hidden") {
     setTimeout(() => {
