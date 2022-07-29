@@ -622,17 +622,3 @@ footer {
     font-size: 1.2rem;
   }
 }
-
-/* Prevent double scrollbars */
-
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .container-overflowing-horizontally-class {
-    padding-bottom: 20px;
-  }
-}
-
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .container-overflowing-vertically-class {
-    padding-right: 20px;
-  }
-}
