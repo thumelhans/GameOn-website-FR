@@ -11,10 +11,19 @@ const inputSelection = document.getElementsByName("input");
 const formSelection = document.getElementById("submissionform");
 const modalBody = document.querySelector(".modal-body");
 
+// responsive navigation menu
+function editNav() {
+  if (burgerNav.className === "topnav") {
+    burgerNav.className += " responsive";
+  } else {
+    burgerNav.className = "topnav";
+  }
+}
+
 // Regex elements
 const birthDateRegex =
-  /(200[0-4]|19[2-9]\d)\-(1[0-2]|0[1-9])\-(3[0-1]|[0-2]\d)/;
-const nameRegex = /^[a-zA-Z\u00e0-\u00ff]+(([- ])?[a-z\u00e0-\u00ff])+$/;
+/(200[0-4]|19[2-9]\d)\-(1[0-2]|0[1-9])\-(3[0-1]|[0-2]\d)/;
+const nameRegex = /^[a-zA-Z\u00e0-\u00ff]+(([- ])?[a-zA-Z\u00e0-\u00ff])+$/;
 const emailRegex =
   /(^[a-z\d]+[\.\-\_]?[a-z\d]+)@([a-z\d]+[.\-]?[a-z\d]+)\.[a-z]+$/;
 const quantityRegex = /^\d?\d$/;
@@ -42,15 +51,6 @@ const inputValue = [
     isValid: (value) => quantityRegex.test(value),
   },
 ];
-
-// responsive navigation menu
-function editNav() {
-  if (burgerNav.className === "topnav") {
-    burgerNav.className += " responsive";
-  } else {
-    burgerNav.className = "topnav";
-  }
-}
 
 /**
  * regexTest return an Object for Each inputValue { inputValue.Id: inputValue.isValid }
@@ -96,7 +96,7 @@ function formDisplayAndValue() {
   }
 }
 
-//check if data is valid
+//check if data is valid and show error message if not
 function isFormDataValid() {
   let regexTestArray = Object.entries(regexTest());
   let isValid = true;
